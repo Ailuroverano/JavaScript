@@ -1,19 +1,61 @@
-/// hacer que el usuario decida entre dos gustos musicales para luego recomendarle un recital de ese genero. 
+/// declaración de las distintas variables.
+let cantidadEntradas, tipoEntrada, totalPagar, resumenCompra, precioPorEntrada;
 
-let opcionValida = false; ///uso la variable 'opcionValida' inicializada en false para que si el usuario ingresa una opcion que es valida, cambio el valor de la variable a 'true' para salir del bucle (sin tener que usar un break).
-let opcionUsuario;
+/// función para capturar entrada del usuario.
+function capturarEntrada() {
+    let inputValido = false;
 
-/// bucle while para asegurar que el usuario elija una opcion valida
-while (!opcionValida) { /// uso de operador logico en vez de (opcionValida === false). 
-    opcionUsuario = prompt("¿Qué tipo de recital prefieres? Ingrese 'rock' o 'pop':");
+    while (!inputValido) {
+        let inputCantidad = prompt("Ingrese la cantidad de entradas que desea comprar:");
 
-    if (opcionUsuario === 'rock') {
-        alert('Muy buena elección! Te recomendamos el recital de Guasones de 2023.');
-        opcionValida = true; /// acá cambio la variable para salir del bucle
-    } else if (opcionUsuario === 'pop') {
-        alert('Excelente elección! Creemos que podrías disfrutar mucho el recital de Taylor Swift.');
-        opcionValida = true;
-    } else {
-        alert('La opción no es valida. Por favor, elige entre "rock" o "pop".');
+        /// validar que la entrada sea un número.
+        if (!isNaN(inputCantidad) && inputCantidad !== null && inputCantidad !== "") {
+            cantidadEntradas = parseInt(inputCantidad);
+            inputValido = true;
+        } else {
+            alert("Por favor, ingrese una cantidad válida de entradas.");
+        }
+    }
+
+    inputValido = false;
+
+    while (!inputValido) {
+        tipoEntrada = prompt("Ingrese el tipo de entrada (VIP o general):");
+
+        /// validar que el tipo de entrada sea válido.
+        if (tipoEntrada.toLowerCase() === "vip" || tipoEntrada.toLowerCase() === "general") {
+            inputValido = true;
+        } else {
+            alert("El tipo de entrada ingresado no es válido. Por favor, elija VIP o general.");
+        }
     }
 }
+
+/// función para calcular el total a pagar.
+function calcularTotal() {
+    /// Precio por tipo de entrada.
+    if (tipoEntrada.toLowerCase() === "vip") {
+        precioPorEntrada = 100000; 
+    } else if (tipoEntrada.toLowerCase() === "general") {
+        precioPorEntrada = 50000; 
+    }
+
+    totalPagar = cantidadEntradas * precioPorEntrada;
+}
+
+// función para mostrar el resumen de la compra.
+function mostrarResumenCompra() {
+    resumenCompra = `
+    Resumen de tu compra:
+    Cantidad de entradas: ${cantidadEntradas}
+    Tipo de entrada: ${tipoEntrada}
+    Total a pagar: $${totalPagar}
+    `;
+
+    alert(resumenCompra);
+}
+
+
+capturarEntrada();
+calcularTotal();
+mostrarResumenCompra();
